@@ -1,33 +1,46 @@
 package com.luizfelipe.obra.domain;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Obra {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+@Entity(name = "OBRA")
+public class Obra implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Column
 	private String descricao;
 	
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataCadastro = LocalDate.now();
 	
+	@ManyToOne
+	@JoinColumn(name = "idCliente")
 	private Cliente cliente;
 	
+	@OneToMany(mappedBy = "obra")
 	private Set<Produto> produtos = new HashSet<>();
 	
+	@Column
 	private String observacoes;
 	
-	public Obra(Long id, String descricao, LocalDate dataCadastro, Cliente cliente, Set<Produto> produtos, String observacoes) {
-		super();
-		this.id = id;
-		this.descricao = descricao;
-		this.dataCadastro = dataCadastro;
-		this.cliente = cliente;
-		this.produtos = produtos;
-		this.observacoes = observacoes;
-	}
-
 	public Long getId() {
 		return id;
 	}

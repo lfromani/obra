@@ -1,20 +1,38 @@
 package com.luizfelipe.obra.domain;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
-
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.luizfelipe.obra.domain.enuns.Perfil;
 
-public abstract class Pessoa {
+@Entity(name = "PESSOA")
+public abstract class Pessoa implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Long id;
 	
+	@Column()
 	protected String nome;
 	
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "PERFIS")
 	protected Set<Long> perfis = new HashSet<>();
 	
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	protected LocalDate dataCadastro = LocalDate.now();
 
 	public Pessoa() {
