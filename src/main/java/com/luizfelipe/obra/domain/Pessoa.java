@@ -34,17 +34,21 @@ public abstract class Pessoa implements Serializable {
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	protected LocalDate dataCadastro = LocalDate.now();
+	
+	@Column(unique = true)
+	protected String cpf;
 
 	public Pessoa() {
 		super();
 		addPerfil(Perfil.CLIENTE);
 	}
 
-	public Pessoa(Long id, String nome, LocalDate dataCadastro) {
+	public Pessoa(Long id, String nome, LocalDate dataCadastro, String cpf) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.dataCadastro = dataCadastro;
+		this.cpf = cpf;
 		addPerfil(Perfil.CLIENTE);
 	}
 
@@ -78,6 +82,14 @@ public abstract class Pessoa implements Serializable {
 
 	public void setDataCadastro(LocalDate dataCadastro) {
 		this.dataCadastro = dataCadastro;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 
 }

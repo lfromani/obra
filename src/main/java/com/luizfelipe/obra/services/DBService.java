@@ -36,7 +36,7 @@ public class DBService {
 		listaProdutos.add(produto2);
 		listaProdutos.add(produto3);
 		
-		Cliente cliente = new Cliente(null, "LUIZ FELIPE ROMANI", LocalDate.now());
+		Cliente cliente = new Cliente(null, "LUIZ FELIPE ROMANI", LocalDate.now(), "076.269.269-35");
 		
 		Obra obra = new Obra();
 		obra.setDescricao("OBRA 1 TESTE");

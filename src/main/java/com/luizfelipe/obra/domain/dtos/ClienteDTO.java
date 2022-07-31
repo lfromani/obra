@@ -19,11 +19,14 @@ public class ClienteDTO implements Serializable {
 	
 	private Set<Long> perfis = new HashSet<>();
 	
+	private String cpf;
+	
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataCadastro = LocalDate.now();
 	
 	public ClienteDTO() {
 		super();
+		addPerfis(Perfil.CLIENTE);
 	}
 	
 	public ClienteDTO(Cliente obj) {
@@ -32,6 +35,8 @@ public class ClienteDTO implements Serializable {
 		this.nome = obj.getNome();
 		this.dataCadastro = obj.getDataCadastro();
 		this.perfis = obj.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
+		this.cpf = obj.getCpf();
+		addPerfis(Perfil.CLIENTE);
 	}
 
 	public Long getId() {
@@ -64,6 +69,14 @@ public class ClienteDTO implements Serializable {
 
 	public void addPerfis(Perfil perfil) {
 		this.perfis.add(perfil.getCodigo());
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 	
 }
