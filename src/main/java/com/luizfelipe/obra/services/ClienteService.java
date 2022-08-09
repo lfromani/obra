@@ -1,7 +1,11 @@
 package com.luizfelipe.obra.services;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.luizfelipe.obra.domain.Cliente;
@@ -38,6 +42,20 @@ public class ClienteService {
 		Cliente newObj = new Cliente(objDTO);
 		return clienteRepository.save(newObj);	
 	}
+	
+	public Cliente update(Long id, @Valid ClienteDTO objDTO) {
+		objDTO.setId(id);
+		Cliente oldObj = findById(id);
+		validarPorCPF(objDTO);
+		oldObj = new Cliente(objDTO);
+		return clienteRepository.save(oldObj);
+	}
+	
+	public void delete(Long id) {
+		Cliente obj = findById(id);
+		if (Objects.nonNull(obj))
+			clienteRepository.deleteById(id);
+	}
 
 	private void validarPorCPF(ClienteDTO objDTO) {
 		Optional<Pessoa> obj = pessoaRepository.findByCpf(objDTO.getCpf());
@@ -45,5 +63,5 @@ public class ClienteService {
 			throw new ViolacaoIntegracaoDadosException("CPF já cadastro no sistema!");
 		}		
 	}
-
+	
 }

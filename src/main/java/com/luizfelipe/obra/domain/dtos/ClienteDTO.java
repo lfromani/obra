@@ -5,6 +5,9 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.luizfelipe.obra.domain.Cliente;
 import com.luizfelipe.obra.domain.enuns.Perfil;
@@ -15,10 +18,12 @@ public class ClienteDTO implements Serializable {
 	
 	private Long id;
 	
+	@NotNull(message = "o campo nome é requirido.")
 	private String nome;
 	
 	private Set<Long> perfis = new HashSet<>();
 	
+	@NotNull(message = "o campo CPF é requirido.")
 	private String cpf;
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
