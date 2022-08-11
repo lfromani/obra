@@ -27,9 +27,9 @@ public class DBService {
 	private ObraRepository obraRepository;
 	
 	public void instanciaDB() {
-		Produto produto1 = new Produto(null, "PARAFUSO", new BigDecimal(109.56), LocalDate.now(), new BigDecimal(500.50), null);
-		Produto produto2 = new Produto(null, "TURBINA", new BigDecimal(5000.00), LocalDate.now(), new BigDecimal(125.99), null);
-		Produto produto3 = new Produto(null, "GARRAFA", new BigDecimal(5.12), LocalDate.now(), new BigDecimal(1953.99), null);
+		Produto produto1 = new Produto(null, "PARAFUSO", new BigDecimal(109.56), LocalDate.now(), new BigDecimal(500.50));
+		Produto produto2 = new Produto(null, "TURBINA", new BigDecimal(5000.00), LocalDate.now(), new BigDecimal(125.99));
+		Produto produto3 = new Produto(null, "GARRAFA", new BigDecimal(5.12), LocalDate.now(), new BigDecimal(1953.99));
 		
 		Set<Produto> listaProdutos = new HashSet<>();
 		listaProdutos.add(produto1);
@@ -43,7 +43,6 @@ public class DBService {
 		obra.setDataCadastro(LocalDate.now());
 		obra.setObservacoes("TESTE OBSERVACOES");
 		obra.setCliente(cliente);
-		obra.setProdutos(listaProdutos);
 		
 		clienteRepository.saveAll(Arrays.asList(cliente));
 		produtoRepository.saveAll(Arrays.asList(produto1));

@@ -3,15 +3,16 @@ package com.luizfelipe.obra.domain;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.luizfelipe.obra.domain.dtos.ProdutoDTO;
@@ -37,22 +38,21 @@ public class Produto implements Serializable {
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataCadastro = LocalDate.now();
 
-	@JoinColumn(name = "idObra")
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Obra obra;
+	@ManyToMany
+	@JoinTable(name = "OBRA_PRODUTO", joinColumns = {@JoinColumn(name = "idObra")}, inverseJoinColumns = {@JoinColumn(name = "idProduto")})
+	private List<Obra> obras;
 
 	public Produto() {
 		super();
 	}
 
-	public Produto(Long idProduto, String descricao, BigDecimal quantidade, LocalDate dataCadastro, BigDecimal preco, Obra obra) {
+	public Produto(Long idProduto, String descricao, BigDecimal quantidade, LocalDate dataCadastro, BigDecimal preco) {
 		super();
 		this.idProduto = idProduto;
 		this.descricao = descricao;
 		this.quantidade = quantidade;
 		this.dataCadastro = dataCadastro;
 		this.preco = preco;
-		this.obra = obra;
 	}
 	
 	public Produto(ProdutoDTO dto) {
@@ -70,14 +70,6 @@ public class Produto implements Serializable {
 
 	public void setIdProduto(Long idProduto) {
 		this.idProduto = idProduto;
-	}
-
-	public Obra getObra() {
-		return obra;
-	}
-
-	public void setObra(Obra obra) {
-		this.obra = obra;
 	}
 
 	public String getDescricao() {
@@ -110,6 +102,14 @@ public class Produto implements Serializable {
 
 	public void setPreco(BigDecimal preco) {
 		this.preco = preco;
+	}
+
+	public List<Obra> getObras() {
+		return obras;
+	}
+
+	public void setObras(List<Obra> obras) {
+		this.obras = obras;
 	}
 
 }

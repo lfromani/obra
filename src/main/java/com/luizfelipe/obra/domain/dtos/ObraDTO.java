@@ -2,8 +2,6 @@ package com.luizfelipe.obra.domain.dtos;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.validation.constraints.NotNull;
 
@@ -28,8 +26,6 @@ public class ObraDTO implements Serializable {
 	private Long idCliente;
 
 	private String nomeCliente;
-
-	private Set<ProdutoDTO> produtos = new HashSet<>();
 
 	public ObraDTO() {
 		super();
@@ -91,14 +87,6 @@ public class ObraDTO implements Serializable {
 
 	public void setNomeCliente(String nomeCliente) {
 		this.nomeCliente = nomeCliente;
-	}
-
-	public Set<ProdutoDTO> getProdutos() {
-		return produtos;
-	}
-
-	public void setProdutos(Set<ProdutoDTO> produtos) {
-		this.produtos = produtos;
 	}
 
 }
