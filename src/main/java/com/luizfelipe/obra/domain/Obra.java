@@ -4,10 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -15,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -25,7 +23,7 @@ public class Obra implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long idObra;
 	
 	@Column
 	private String descricao;
@@ -33,23 +31,22 @@ public class Obra implements Serializable {
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataCadastro = LocalDate.now();
 	
-	@ManyToOne
 	@JoinColumn(name = "idCliente")
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Cliente cliente;
-	
-	@ElementCollection(fetch = FetchType.EAGER)
-	@CollectionTable(name = "OBRA_PRODUTOS")
+
+	@OneToMany(mappedBy = "obra")
 	private Set<Produto> produtos = new HashSet<>();
 	
 	@Column
 	private String observacoes;
 	
-	public Long getId() {
-		return id;
+	public Long getIdObra() {
+		return idObra;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdObra(Long idObra) {
+		this.idObra = idObra;
 	}
 
 	public String getDescricao() {

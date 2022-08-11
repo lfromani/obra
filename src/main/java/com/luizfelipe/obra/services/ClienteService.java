@@ -18,13 +18,13 @@ import com.luizfelipe.obra.services.exceptions.ViolacaoIntegracaoDadosException;
 
 @Service
 public class ClienteService {
-	
+
 	@Autowired
 	private ClienteRepository clienteRepository;
-	
+
 	@Autowired
 	private PessoaRepository pessoaRepository;
-	
+
 	public Cliente findById(Long id) {
 		Optional<Cliente> obj = clienteRepository.findById(id);
 		return obj.orElseThrow(() -> new ObjetoNaoEncontradoException("Objeto não encontrado! ID: " + id));
@@ -35,22 +35,22 @@ public class ClienteService {
 	}
 
 	public Cliente create(ClienteDTO objDTO) {
-		objDTO.setId(null);
-		
+		objDTO.setIdCliente(null);
+
 		validarPorCPF(objDTO);
-		
+
 		Cliente newObj = new Cliente(objDTO);
-		return clienteRepository.save(newObj);	
+		return clienteRepository.save(newObj);
 	}
-	
+
 	public Cliente update(Long id, @Valid ClienteDTO objDTO) {
-		objDTO.setId(id);
+		objDTO.setIdCliente(id);
 		Cliente oldObj = findById(id);
 		validarPorCPF(objDTO);
 		oldObj = new Cliente(objDTO);
 		return clienteRepository.save(oldObj);
 	}
-	
+
 	public void delete(Long id) {
 		Cliente obj = findById(id);
 		if (Objects.nonNull(obj))
@@ -59,9 +59,9 @@ public class ClienteService {
 
 	private void validarPorCPF(ClienteDTO objDTO) {
 		Optional<Pessoa> obj = pessoaRepository.findByCpf(objDTO.getCpf());
-		if (obj.isPresent() && obj.get().getId() != objDTO.getId()) {
+		if (obj.isPresent() && obj.get().getIdPessoa() != objDTO.getIdCliente()) {
 			throw new ViolacaoIntegracaoDadosException("CPF já cadastro no sistema!");
-		}		
+		}
 	}
-	
+
 }

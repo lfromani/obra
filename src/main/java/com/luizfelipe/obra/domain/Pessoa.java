@@ -21,47 +21,53 @@ import com.luizfelipe.obra.domain.enuns.Perfil;
 
 @Entity(name = "PESSOA")
 public abstract class Pessoa implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	protected Long id;
-	
+	protected Long idPessoa;
+
 	@Column()
 	protected String nome;
-	
+
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "PERFIS")
 	protected Set<Long> perfis = new HashSet<>();
-	
+
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	protected LocalDate dataCadastro = LocalDate.now();
-	
+
 	@CPF
 	@Column(unique = true)
 	protected String cpf;
+	
+	@Column()
+	protected String login;
+	
+	@Column()
+	protected String senha;
 
 	public Pessoa() {
 		super();
 		addPerfil(Perfil.CLIENTE);
 	}
 
-	public Pessoa(Long id, String nome, LocalDate dataCadastro, String cpf) {
+	public Pessoa(Long idPessoa, String nome, LocalDate dataCadastro, String cpf) {
 		super();
-		this.id = id;
+		this.idPessoa = idPessoa;
 		this.nome = nome;
 		this.dataCadastro = dataCadastro;
 		this.cpf = cpf;
 		addPerfil(Perfil.CLIENTE);
 	}
 
-	public Long getId() {
-		return id;
+	public Long getIdPessoa() {
+		return idPessoa;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdPessoa(Long idPessoa) {
+		this.idPessoa = idPessoa;
 	}
 
 	public String getNome() {
@@ -71,7 +77,7 @@ public abstract class Pessoa implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
+
 	public Set<Perfil> getPerfis() {
 		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
 	}

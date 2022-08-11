@@ -46,7 +46,7 @@ public class ObraResource {
 	@PostMapping
 	public ResponseEntity<ObraDTO> create(@Valid @RequestBody ObraDTO objDTO) {
 		Obra obj = obraService.create(objDTO);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getIdObra()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	

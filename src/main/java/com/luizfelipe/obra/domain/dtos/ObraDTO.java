@@ -2,6 +2,8 @@ package com.luizfelipe.obra.domain.dtos;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.validation.constraints.NotNull;
 
@@ -12,7 +14,7 @@ public class ObraDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Long id;
+	private Long idObra;
 
 	private String descricao;
 
@@ -27,26 +29,28 @@ public class ObraDTO implements Serializable {
 
 	private String nomeCliente;
 
+	private Set<ProdutoDTO> produtos = new HashSet<>();
+
 	public ObraDTO() {
 		super();
 	}
 
 	public ObraDTO(Obra obj) {
 		super();
-		this.id = obj.getId();
+		this.idObra = obj.getIdObra();
 		this.descricao = obj.getDescricao();
 		this.dataCadastro = obj.getDataCadastro();
 		this.observacoes = obj.getObservacoes();
-		this.idCliente = obj.getCliente().getId();
+		this.idCliente = obj.getCliente().getIdPessoa();
 		this.nomeCliente = obj.getCliente().getNome();
 	}
 
-	public Long getId() {
-		return id;
+	public Long getIdObra() {
+		return idObra;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdObra(Long idObra) {
+		this.idObra = idObra;
 	}
 
 	public String getDescricao() {
@@ -87,6 +91,14 @@ public class ObraDTO implements Serializable {
 
 	public void setNomeCliente(String nomeCliente) {
 		this.nomeCliente = nomeCliente;
+	}
+
+	public Set<ProdutoDTO> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(Set<ProdutoDTO> produtos) {
+		this.produtos = produtos;
 	}
 
 }

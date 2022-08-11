@@ -48,7 +48,7 @@ public class ClienteResource {
 	public ResponseEntity<ClienteDTO> create(@Valid @RequestBody ClienteDTO objDTO) {
 		Cliente newObj = clienteService.create(objDTO);
 		
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getIdPessoa()).toUri();
 		return ResponseEntity.created(uri).build();		
 	}
 	

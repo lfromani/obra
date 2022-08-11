@@ -5,27 +5,27 @@ import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
 
-import com.luizfelipe.obra.domain.dtos.ClienteDTO;
+import com.luizfelipe.obra.domain.dtos.UsuarioDTO;
 import com.luizfelipe.obra.domain.enuns.Perfil;
 
-@Entity(name = "CLIENTE")
-public class Cliente extends Pessoa {
+@Entity(name = "USUARIO")
+public class Usuario extends Pessoa {
 
 	private static final long serialVersionUID = 1L;
 
-	public Cliente() {
+	public Usuario() {
 		super();
-		addPerfil(Perfil.CLIENTE);
+		addPerfil(Perfil.ADMIN);
 	}
 
-	public Cliente(Long idPessoa, String nome, LocalDate dataCadastro, String cpf) {
+	public Usuario(Long idPessoa, String nome, LocalDate dataCadastro, String cpf) {
 		super(idPessoa, nome, dataCadastro, cpf);
-		addPerfil(Perfil.CLIENTE);
+		addPerfil(Perfil.ADMIN);
 	}
 	
-	public Cliente(ClienteDTO dto) {
+	public Usuario(UsuarioDTO dto) {
 		super();
-		this.idPessoa = dto.getIdCliente();
+		this.idPessoa = dto.getIdUsuario();
 		this.nome = dto.getNome();
 		this.dataCadastro = dto.getDataCadastro();
 		this.perfis = dto.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());

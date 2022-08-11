@@ -9,14 +9,14 @@ import java.util.stream.Collectors;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.luizfelipe.obra.domain.Cliente;
+import com.luizfelipe.obra.domain.Usuario;
 import com.luizfelipe.obra.domain.enuns.Perfil;
 
-public class ClienteDTO implements Serializable {
+public class UsuarioDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Long idCliente;
+	private Long idUsuario;
 
 	@NotNull(message = "o campo nome é requirido.")
 	private String nome;
@@ -26,30 +26,36 @@ public class ClienteDTO implements Serializable {
 	@NotNull(message = "o campo CPF é requirido.")
 	private String cpf;
 
+	@NotNull(message = "o campo CPF é requirido.")
+	private String login;
+
+	@NotNull(message = "o campo CPF é requirido.")
+	private String senha;
+
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataCadastro = LocalDate.now();
 
-	public ClienteDTO() {
+	public UsuarioDTO() {
 		super();
-		addPerfis(Perfil.CLIENTE);
+		addPerfis(Perfil.ADMIN);
 	}
 
-	public ClienteDTO(Cliente obj) {
+	public UsuarioDTO(Usuario obj) {
 		super();
-		this.idCliente = obj.getIdPessoa();
+		this.idUsuario = obj.getIdPessoa();
 		this.nome = obj.getNome();
 		this.dataCadastro = obj.getDataCadastro();
 		this.perfis = obj.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
 		this.cpf = obj.getCpf();
-		addPerfis(Perfil.CLIENTE);
+		addPerfis(Perfil.ADMIN);
 	}
 
-	public Long getIdCliente() {
-		return idCliente;
+	public Long getIdUsuario() {
+		return idUsuario;
 	}
 
-	public void setIdCliente(Long idCliente) {
-		this.idCliente = idCliente;
+	public void setIdUsuario(Long idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 
 	public String getNome() {
@@ -82,6 +88,22 @@ public class ClienteDTO implements Serializable {
 
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 }

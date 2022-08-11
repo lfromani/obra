@@ -37,7 +37,7 @@ public class ObraService {
 	
 
 	public Obra update(Long id, @Valid ObraDTO objDTO) {
-		objDTO.setId(id);
+		objDTO.setIdObra(id);
 		Obra oldObj = findById(id);
 		oldObj = newObra(objDTO);
 		return obraRepository.save(oldObj);
@@ -47,8 +47,8 @@ public class ObraService {
 		Cliente cliente = clienteService.findById(obj.getIdCliente());
 		
 		Obra obra = new Obra();
-		if (obj.getId() != null) {
-			obra.setId(obj.getId());
+		if (obj.getIdObra() != null) {
+			obra.setIdObra(null);
 		}
 		
 		obra.setCliente(cliente);
