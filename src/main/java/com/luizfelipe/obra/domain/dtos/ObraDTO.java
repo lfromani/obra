@@ -2,6 +2,9 @@ package com.luizfelipe.obra.domain.dtos;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.luizfelipe.obra.domain.Obra;
 
@@ -16,8 +19,10 @@ public class ObraDTO implements Serializable {
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataCadastro = LocalDate.now();
 
+	@NotNull(message = "O campo OBSERVAÇÕES é requirido")
 	private String observacoes;
 
+	@NotNull(message = "O campo CLIENTE é requirido")
 	private Long idCliente;
 
 	private String nomeCliente;
