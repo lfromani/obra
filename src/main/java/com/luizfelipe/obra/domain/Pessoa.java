@@ -41,10 +41,10 @@ public abstract class Pessoa implements Serializable {
 	@CPF
 	@Column(unique = true)
 	protected String cpf;
-	
+
 	@Column()
 	protected String login;
-	
+
 	@Column()
 	protected String senha;
 
@@ -53,12 +53,14 @@ public abstract class Pessoa implements Serializable {
 		addPerfil(Perfil.CLIENTE);
 	}
 
-	public Pessoa(Long idPessoa, String nome, LocalDate dataCadastro, String cpf) {
+	public Pessoa(Long idPessoa, String nome, LocalDate dataCadastro, String cpf, String login, String senha) {
 		super();
 		this.idPessoa = idPessoa;
 		this.nome = nome;
 		this.dataCadastro = dataCadastro;
 		this.cpf = cpf;
+		this.login = login;
+		this.senha = senha;
 		addPerfil(Perfil.CLIENTE);
 	}
 
@@ -100,6 +102,22 @@ public abstract class Pessoa implements Serializable {
 
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 }

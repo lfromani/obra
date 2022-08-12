@@ -18,8 +18,8 @@ public class Usuario extends Pessoa {
 		addPerfil(Perfil.ADMIN);
 	}
 
-	public Usuario(Long idPessoa, String nome, LocalDate dataCadastro, String cpf) {
-		super(idPessoa, nome, dataCadastro, cpf);
+	public Usuario(Long idPessoa, String nome, LocalDate dataCadastro, String cpf, String login, String senha) {
+		super(idPessoa, nome, dataCadastro, cpf, login, senha);
 		addPerfil(Perfil.ADMIN);
 	}
 	
@@ -30,6 +30,8 @@ public class Usuario extends Pessoa {
 		this.dataCadastro = dto.getDataCadastro();
 		this.perfis = dto.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
 		this.cpf = dto.getCpf();
+		this.login = dto.getLogin();
+		this.senha = dto.getSenha();
 	}
 	
 }

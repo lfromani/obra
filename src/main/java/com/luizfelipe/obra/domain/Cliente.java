@@ -18,8 +18,8 @@ public class Cliente extends Pessoa {
 		addPerfil(Perfil.CLIENTE);
 	}
 
-	public Cliente(Long idPessoa, String nome, LocalDate dataCadastro, String cpf) {
-		super(idPessoa, nome, dataCadastro, cpf);
+	public Cliente(Long idPessoa, String nome, LocalDate dataCadastro, String cpf, String login, String senha) {
+		super(idPessoa, nome, dataCadastro, cpf, login, senha);
 		addPerfil(Perfil.CLIENTE);
 	}
 	
