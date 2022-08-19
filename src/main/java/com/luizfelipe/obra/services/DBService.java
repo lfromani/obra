@@ -45,7 +45,7 @@ public class DBService {
 		listaProdutos.add(produto2);
 		listaProdutos.add(produto3);
 		
-		Cliente cliente = new Cliente(null, "LUIZ FELIPE ROMANI", LocalDate.now(), "076.269.269-35", "luiz.romani", encoder.encode("1234"));
+		Cliente cliente = new Cliente(null, "MARCELO CANCI", LocalDate.now(), "74402854920", null, null);
 		
 		Obra obra = new Obra();
 		obra.setDescricao("OBRA 1 TESTE");
@@ -53,7 +53,7 @@ public class DBService {
 		obra.setObservacoes("TESTE OBSERVACOES");
 		obra.setCliente(cliente);
 		
-		Usuario usuario = new Usuario(null, "Marcelo Canci", LocalDate.now(), "744.028.549-20", "marcelo.canci", encoder.encode("1234"));
+		Usuario usuario = new Usuario(null, "LUIZ FELIPE ROMANI", LocalDate.now(), "07626926935", "luiz.romani", encoder.encode("123"));
 		
 		usuarioRepository.saveAll(Arrays.asList(usuario));
 		
