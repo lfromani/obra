@@ -18,12 +18,11 @@ public class ClienteDTO implements Serializable {
 
 	private Long idCliente;
 
-	@NotNull(message = "o campo nome é requirido.")
+	@NotNull(message = "O campo Nome é obrigatório.")
 	private String nome;
 
 	private Set<Long> perfis = new HashSet<>();
 
-	@NotNull(message = "o campo CPF é requirido.")
 	private String cpf;
 
 	@JsonFormat(pattern = "dd/MM/yyyy")

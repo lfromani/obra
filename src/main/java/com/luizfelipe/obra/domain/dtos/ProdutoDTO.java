@@ -15,13 +15,11 @@ public class ProdutoDTO implements Serializable {
 
 	private Long idProduto;
 
-	@NotNull(message = "o campo CPF é requirido.")
+	@NotNull(message = "O campo Descrição é obrigatório.")
 	private String descricao;
 
-	@NotNull(message = "o campo CPF é requirido.")
 	private BigDecimal quantidade;
 
-	@NotNull(message = "o campo CPF é requirido.")
 	private BigDecimal preco;
 
 	@JsonFormat(pattern = "dd/MM/yyyy")

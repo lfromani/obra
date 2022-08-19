@@ -1,5 +1,6 @@
 package com.luizfelipe.obra.services;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -31,6 +32,7 @@ public class ProdutoService {
 
 	public Produto create(ProdutoDTO objDTO) {
 		objDTO.setIdProduto(null);
+		objDTO.setDataCadastro(LocalDate.now());
 
 		Produto newObj = new Produto(objDTO);
 		return produtoRepository.save(newObj);
