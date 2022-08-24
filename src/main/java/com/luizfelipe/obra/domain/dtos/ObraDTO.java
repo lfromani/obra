@@ -19,10 +19,13 @@ public class ObraDTO implements Serializable {
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataCadastro = LocalDate.now();
 
-	@NotNull(message = "O campo OBSERVAÇÕES é requirido")
+	@NotNull(message = "O campo OBSERVAÇÕES é obrigatório.")
 	private String observacoes;
 
-	@NotNull(message = "O campo CLIENTE é requirido")
+	@NotNull(message = "O campo STATUS é obrigatório.")
+	private Long status;
+
+	@NotNull(message = "O campo CLIENTE é obrigatório.")
 	private Long idCliente;
 
 	private String nomeCliente;
@@ -39,6 +42,7 @@ public class ObraDTO implements Serializable {
 		this.observacoes = obj.getObservacoes();
 		this.idCliente = obj.getCliente().getIdPessoa();
 		this.nomeCliente = obj.getCliente().getNome();
+		this.status = obj.getStatus().getCodigo();
 	}
 
 	public Long getIdObra() {
@@ -87,6 +91,14 @@ public class ObraDTO implements Serializable {
 
 	public void setNomeCliente(String nomeCliente) {
 		this.nomeCliente = nomeCliente;
+	}
+
+	public Long getStatus() {
+		return status;
+	}
+
+	public void setStatus(Long status) {
+		this.status = status;
 	}
 
 }

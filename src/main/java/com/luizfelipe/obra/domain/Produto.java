@@ -7,12 +7,14 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.luizfelipe.obra.domain.dtos.ProdutoDTO;
@@ -38,8 +40,12 @@ public class Produto implements Serializable {
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataCadastro = LocalDate.now();
 
+	@JoinColumn(name = "idUnidadeMedida")
+	@ManyToOne(fetch = FetchType.LAZY)
+	private UnidadeMedida unidadeMedida;
+
 	@ManyToMany
-	@JoinTable(name = "OBRA_PRODUTO", joinColumns = {@JoinColumn(name = "idObra")}, inverseJoinColumns = {@JoinColumn(name = "idProduto")})
+	@JoinTable(name = "OBRA_PRODUTO", joinColumns = { @JoinColumn(name = "idObra") }, inverseJoinColumns = {@JoinColumn(name = "idProduto") })
 	private List<Obra> obras;
 
 	public Produto() {
@@ -54,7 +60,7 @@ public class Produto implements Serializable {
 		this.dataCadastro = dataCadastro;
 		this.preco = preco;
 	}
-	
+
 	public Produto(ProdutoDTO dto) {
 		super();
 		this.idProduto = dto.getIdProduto();
@@ -110,6 +116,14 @@ public class Produto implements Serializable {
 
 	public void setObras(List<Obra> obras) {
 		this.obras = obras;
+	}
+
+	public UnidadeMedida getUnidadeMedida() {
+		return unidadeMedida;
+	}
+
+	public void setUnidadeMedida(UnidadeMedida unidadeMedida) {
+		this.unidadeMedida = unidadeMedida;
 	}
 
 }

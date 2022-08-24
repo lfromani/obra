@@ -20,9 +20,13 @@ public class ProdutoService {
 
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	@Autowired
+	private UnidadeMedidaService unidadeMedidaService;
+	
 
 	public Produto findById(Long id) {
 		Optional<Produto> obj = produtoRepository.findById(id);
+		
 		return obj.orElseThrow(() -> new ObjetoNaoEncontradoException("Produto não encontrado! ID: " + id));
 	}
 
@@ -33,8 +37,12 @@ public class ProdutoService {
 	public Produto create(ProdutoDTO objDTO) {
 		objDTO.setIdProduto(null);
 		objDTO.setDataCadastro(LocalDate.now());
-
+		
 		Produto newObj = new Produto(objDTO);
+		
+		if (objDTO.getIdUnidadeMedida() != null)
+			newObj.setUnidadeMedida(unidadeMedidaService.findById(objDTO.getIdUnidadeMedida()));
+		
 		return produtoRepository.save(newObj);
 	}
 
@@ -42,6 +50,7 @@ public class ProdutoService {
 		objDTO.setIdProduto(id);
 		Produto oldObj = findById(id);
 		oldObj = new Produto(objDTO);
+		
 		return produtoRepository.save(oldObj);
 	}
 

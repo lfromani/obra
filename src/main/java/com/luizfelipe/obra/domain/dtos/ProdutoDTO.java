@@ -25,6 +25,8 @@ public class ProdutoDTO implements Serializable {
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataCadastro = LocalDate.now();
 
+	private Long idUnidadeMedida;
+
 	public ProdutoDTO() {
 		super();
 	}
@@ -36,6 +38,7 @@ public class ProdutoDTO implements Serializable {
 		this.dataCadastro = obj.getDataCadastro();
 		this.quantidade = obj.getQuantidade();
 		this.preco = obj.getPreco();
+		this.idUnidadeMedida = obj.getUnidadeMedida() != null ? obj.getUnidadeMedida().getIdUnidadeMedida() : null;
 	}
 
 	public Long getIdProduto() {
@@ -76,6 +79,14 @@ public class ProdutoDTO implements Serializable {
 
 	public void setDataCadastro(LocalDate dataCadastro) {
 		this.dataCadastro = dataCadastro;
+	}
+
+	public Long getIdUnidadeMedida() {
+		return idUnidadeMedida;
+	}
+
+	public void setIdUnidadeMedida(Long idUnidadeMedida) {
+		this.idUnidadeMedida = idUnidadeMedida;
 	}
 
 }

@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.luizfelipe.obra.domain.enuns.Status;
 
 @Entity(name = "OBRA")
 public class Obra implements Serializable {
@@ -31,9 +32,14 @@ public class Obra implements Serializable {
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataCadastro = LocalDate.now();
 	
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private LocalDate dataEncerramento;
+	
 	@JoinColumn(name = "idCliente")
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Cliente cliente;
+	
+	private Status status;
 
 	@ManyToMany(mappedBy = "obras")
 	private List<Produto> produtos;
@@ -41,6 +47,20 @@ public class Obra implements Serializable {
 	@Column
 	private String observacoes;
 	
+	public Obra() {
+		super();
+	}
+	
+	public Obra(Long idObra, String descricao, LocalDate dataCadastro, Cliente cliente, Status status, String observacoes) {
+		super();
+		this.idObra = idObra;
+		this.descricao = descricao;
+		this.dataCadastro = dataCadastro;
+		this.cliente = cliente;
+		this.status = status;
+		this.observacoes = observacoes;
+	}
+
 	public Long getIdObra() {
 		return idObra;
 	}
@@ -87,6 +107,22 @@ public class Obra implements Serializable {
 
 	public void setObservacoes(String observacoes) {
 		this.observacoes = observacoes;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	public LocalDate getDataEncerramento() {
+		return dataEncerramento;
+	}
+
+	public void setDataEncerramento(LocalDate dataEncerramento) {
+		this.dataEncerramento = dataEncerramento;
 	}
 	
 }
