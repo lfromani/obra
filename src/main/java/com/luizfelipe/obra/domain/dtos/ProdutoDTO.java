@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.luizfelipe.obra.domain.Produto;
+import com.luizfelipe.obra.domain.UnidadeMedida;
 
 public class ProdutoDTO implements Serializable {
 
@@ -27,6 +28,8 @@ public class ProdutoDTO implements Serializable {
 
 	private Long idUnidadeMedida;
 
+	private String unidadeMedida;
+
 	public ProdutoDTO() {
 		super();
 	}
@@ -39,6 +42,7 @@ public class ProdutoDTO implements Serializable {
 		this.quantidade = obj.getQuantidade();
 		this.preco = obj.getPreco();
 		this.idUnidadeMedida = obj.getUnidadeMedida() != null ? obj.getUnidadeMedida().getIdUnidadeMedida() : null;
+		this.unidadeMedida = obj.getUnidadeMedida() != null ? getUnidadeMedidaFormatado(obj.getUnidadeMedida()) : null;
 	}
 
 	public Long getIdProduto() {
@@ -87,6 +91,18 @@ public class ProdutoDTO implements Serializable {
 
 	public void setIdUnidadeMedida(Long idUnidadeMedida) {
 		this.idUnidadeMedida = idUnidadeMedida;
+	}
+
+	public String getUnidadeMedida() {
+		return unidadeMedida;
+	}
+
+	public void setUnidadeMedida(String unidadeMedida) {
+		this.unidadeMedida = unidadeMedida;
+	}
+	
+	private String getUnidadeMedidaFormatado(UnidadeMedida unidadeMedida) {
+		return unidadeMedida.getDescricao() + " - (" + unidadeMedida.getSigla() + ")";		
 	}
 
 }

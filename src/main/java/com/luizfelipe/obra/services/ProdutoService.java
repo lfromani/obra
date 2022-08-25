@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.luizfelipe.obra.domain.Produto;
+import com.luizfelipe.obra.domain.UnidadeMedida;
 import com.luizfelipe.obra.domain.dtos.ProdutoDTO;
 import com.luizfelipe.obra.repository.ProdutoRepository;
 import com.luizfelipe.obra.services.exceptions.ObjetoNaoEncontradoException;
@@ -40,8 +41,7 @@ public class ProdutoService {
 		
 		Produto newObj = new Produto(objDTO);
 		
-		if (objDTO.getIdUnidadeMedida() != null)
-			newObj.setUnidadeMedida(unidadeMedidaService.findById(objDTO.getIdUnidadeMedida()));
+		newObj.setUnidadeMedida(unidadeMedidaService.findById(objDTO.getIdUnidadeMedida()));
 		
 		return produtoRepository.save(newObj);
 	}
@@ -49,7 +49,11 @@ public class ProdutoService {
 	public Produto update(Long id, @Valid ProdutoDTO objDTO) {
 		objDTO.setIdProduto(id);
 		Produto oldObj = findById(id);
+		
+		UnidadeMedida unidadeMedida = oldObj.getUnidadeMedida();
+		
 		oldObj = new Produto(objDTO);
+		oldObj.setUnidadeMedida(unidadeMedida);
 		
 		return produtoRepository.save(oldObj);
 	}

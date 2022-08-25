@@ -41,7 +41,7 @@ public class Produto implements Serializable {
 	private LocalDate dataCadastro = LocalDate.now();
 
 	@JoinColumn(name = "idUnidadeMedida")
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private UnidadeMedida unidadeMedida;
 
 	@ManyToMany
