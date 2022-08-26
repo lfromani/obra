@@ -1,5 +1,6 @@
 package com.luizfelipe.obra.services;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -27,7 +28,7 @@ public class ClienteService {
 
 	public Cliente findById(Long id) {
 		Optional<Cliente> obj = clienteRepository.findById(id);
-		return obj.orElseThrow(() -> new ObjetoNaoEncontradoException("Objeto não encontrado! ID: " + id));
+		return obj.orElseThrow(() -> new ObjetoNaoEncontradoException("Cliente não encontrado! ID: " + id));
 	}
 
 	public List<Cliente> findAll() {
@@ -40,13 +41,13 @@ public class ClienteService {
 		validarPorCPF(objDTO);
 
 		Cliente newObj = new Cliente(objDTO);
+		newObj.setDataCadastro(LocalDate.now());
 		return clienteRepository.save(newObj);
 	}
 
 	public Cliente update(Long id, @Valid ClienteDTO objDTO) {
 		objDTO.setIdCliente(id);
 		Cliente oldObj = findById(id);
-		validarPorCPF(objDTO);
 		oldObj = new Cliente(objDTO);
 		return clienteRepository.save(oldObj);
 	}

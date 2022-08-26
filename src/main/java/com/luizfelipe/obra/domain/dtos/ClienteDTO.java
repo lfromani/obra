@@ -21,7 +21,7 @@ public class ClienteDTO implements Serializable {
 	@NotNull(message = "O campo Nome é obrigatório.")
 	private String nome;
 
-	private Set<Long> perfis = new HashSet<>();
+	//private Set<Long> perfis = new HashSet<>();
 
 	private String cpf;
 
@@ -30,7 +30,7 @@ public class ClienteDTO implements Serializable {
 
 	public ClienteDTO() {
 		super();
-		addPerfis(Perfil.CLIENTE);
+		//addPerfis(Perfil.CLIENTE);
 	}
 
 	public ClienteDTO(Cliente obj) {
@@ -38,9 +38,9 @@ public class ClienteDTO implements Serializable {
 		this.idCliente = obj.getIdPessoa();
 		this.nome = obj.getNome();
 		this.dataCadastro = obj.getDataCadastro();
-		this.perfis = obj.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
+		//this.perfis = obj.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
 		this.cpf = obj.getCpf();
-		addPerfis(Perfil.CLIENTE);
+		//addPerfis(Perfil.CLIENTE);
 	}
 
 	public Long getIdCliente() {
@@ -67,13 +67,13 @@ public class ClienteDTO implements Serializable {
 		this.dataCadastro = dataCadastro;
 	}
 
-	public Set<Perfil> getPerfis() {
+	/*public Set<Perfil> getPerfis() {
 		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
 	}
 
 	public void addPerfis(Perfil perfil) {
 		this.perfis.add(perfil.getCodigo());
-	}
+	}*/
 
 	public String getCpf() {
 		return cpf;

@@ -28,7 +28,7 @@ public class Cliente extends Pessoa {
 		this.idPessoa = dto.getIdCliente();
 		this.nome = dto.getNome();
 		this.dataCadastro = dto.getDataCadastro();
-		this.perfis = dto.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
+		//this.perfis = dto.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
 		this.cpf = dto.getCpf();
 	}
 	

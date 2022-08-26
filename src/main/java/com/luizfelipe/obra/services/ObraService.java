@@ -45,7 +45,9 @@ public class ObraService {
 	public Obra update(Long id, @Valid ObraDTO objDTO) {
 		objDTO.setIdObra(id);
 		Obra oldObj = findById(id);
-		oldObj = newObra(objDTO);
+		oldObj.setDescricao(objDTO.getDescricao());
+		oldObj.setObservacoes(objDTO.getObservacoes());
+		
 		return obraRepository.save(oldObj);
 	}
 	
@@ -53,18 +55,11 @@ public class ObraService {
 		Cliente cliente = clienteService.findById(obj.getIdCliente());
 		
 		Obra obra = new Obra();
-		if (obj.getIdObra() != null)
-			obra.setIdObra(null);
-		
-		if (obj.getStatus().equals(STATUS_ENCERRADO))
-			obra.setDataEncerramento(LocalDate.now());
-		
-		if (obj.getStatus().equals(null))
-			obra.setStatus(Status.ABERTO);
-		
+		obra.setIdObra(null);
+		obra.setStatus(Status.ABERTO);
 		obra.setCliente(cliente);
 		obra.setObservacoes(obj.getObservacoes());
-		obra.setDataCadastro(obj.getDataCadastro());
+		obra.setDataCadastro(LocalDate.now());
 		obra.setDescricao(obj.getDescricao());
 		
 		return obra;
