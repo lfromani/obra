@@ -1,0 +1,55 @@
+package com.luizfelipe.obra.resources;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.luizfelipe.obra.domain.Movimento;
+import com.luizfelipe.obra.domain.Obra;
+import com.luizfelipe.obra.domain.Produto;
+import com.luizfelipe.obra.services.MovimentoService;
+import com.luizfelipe.obra.vo.MovimentoVO;
+
+@RestController
+@RequestMapping(value = "/movimentos")
+public class MovimentoResource {
+	
+	@Autowired
+	private MovimentoService service;	
+
+	@GetMapping(value = "/findByIdObra/{idObra}")
+	public ResponseEntity<List<MovimentoVO>> findByIdObra(@PathVariable Long idObra) {
+		List<Movimento> movimentos = service.findByIdObra(idObra);
+		List<MovimentoVO> movimentosVO = new ArrayList<>();
+		
+		for (Movimento movimento : movimentos) {
+			MovimentoVO vo = new MovimentoVO();
+			vo.setIdMovimento(movimento.getIdMovimento());
+			vo.setDataLancamento(movimento.getDataLancamento());
+			vo.setQuantidade(movimento.getQuantidade());
+			vo.setProduto(montarProduto(movimento.getProduto()));
+			vo.setObra(montarObra(movimento.getObra()));
+			
+			movimentosVO.add(vo);
+		}
+		
+		return ResponseEntity.ok().body(movimentosVO);
+	}
+
+	private String montarObra(Obra obra) {
+		return obra.getIdObra().toString() + " - " + obra.getDescricao(); 
+	}
+
+	private String montarProduto(Produto produto) {
+		return produto.getIdProduto().toString() + " - " + produto.getDescricao();
+	}
+	
+}
+
+//List<MovimentoDTO> listMovimentosDTO = movimentos.stream().map(m -> mapper.map(m, MovimentoDTO.class)).collect(Collectors.toList());

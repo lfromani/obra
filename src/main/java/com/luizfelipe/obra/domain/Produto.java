@@ -3,7 +3,6 @@ package com.luizfelipe.obra.domain;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,8 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -43,10 +40,6 @@ public class Produto implements Serializable {
 	@JoinColumn(name = "idUnidadeMedida")
 	@ManyToOne(fetch = FetchType.EAGER)
 	private UnidadeMedida unidadeMedida;
-
-	@ManyToMany
-	@JoinTable(name = "OBRA_PRODUTO", joinColumns = { @JoinColumn(name = "idObra") }, inverseJoinColumns = {@JoinColumn(name = "idProduto") })
-	private List<Obra> obras;
 
 	public Produto() {
 		super();
@@ -108,14 +101,6 @@ public class Produto implements Serializable {
 
 	public void setPreco(BigDecimal preco) {
 		this.preco = preco;
-	}
-
-	public List<Obra> getObras() {
-		return obras;
-	}
-
-	public void setObras(List<Obra> obras) {
-		this.obras = obras;
 	}
 
 	public UnidadeMedida getUnidadeMedida() {
