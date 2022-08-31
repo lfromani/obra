@@ -12,9 +12,9 @@ public class MovimentoDTO implements Serializable {
 
 	private Long idMovimento;
 
-	private ObraDTO obra;
+	private Long obra;
 
-	private ProdutoDTO produto;
+	private Long produto;
 
 	private BigDecimal quantidade;
 
@@ -33,19 +33,19 @@ public class MovimentoDTO implements Serializable {
 		this.idMovimento = idMovimento;
 	}
 
-	public ObraDTO getObra() {
+	public Long getObra() {
 		return obra;
 	}
 
-	public void setObra(ObraDTO obra) {
+	public void setObra(Long obra) {
 		this.obra = obra;
 	}
 
-	public ProdutoDTO getProduto() {
+	public Long getProduto() {
 		return produto;
 	}
 
-	public void setProduto(ProdutoDTO produto) {
+	public void setProduto(Long produto) {
 		this.produto = produto;
 	}
 
