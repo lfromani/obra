@@ -1,10 +1,7 @@
 package com.luizfelipe.obra.domain;
 
 import java.time.LocalDate;
-import java.util.stream.Collectors;
-
 import javax.persistence.Entity;
-
 import com.luizfelipe.obra.domain.dtos.ClienteDTO;
 import com.luizfelipe.obra.domain.enuns.Perfil;
 
@@ -18,8 +15,10 @@ public class Cliente extends Pessoa {
 		addPerfil(Perfil.CLIENTE);
 	}
 
-	public Cliente(Long idPessoa, String nome, LocalDate dataCadastro, String cpf, String login, String senha) {
-		super(idPessoa, nome, dataCadastro, cpf, login, senha);
+	public Cliente(Long idPessoa, String nome, LocalDate dataCadastro, String cpf, String login, String senha, 
+			String endereco, String telefone, String email, LocalDate dataNascimento) {
+		
+		super(idPessoa, nome, dataCadastro, cpf, login, senha, endereco, telefone, email, dataNascimento);
 		addPerfil(Perfil.CLIENTE);
 	}
 	
@@ -28,8 +27,11 @@ public class Cliente extends Pessoa {
 		this.idPessoa = dto.getIdCliente();
 		this.nome = dto.getNome();
 		this.dataCadastro = dto.getDataCadastro();
-		//this.perfis = dto.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
 		this.cpf = dto.getCpf();
+		this.endereco = dto.getEndereco();
+		this.telefone = dto.getTelefone();
+		this.email = dto.getEmail();
+		this.dataNascimento = dto.getDataNascimento();
 	}
 	
 }

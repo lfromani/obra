@@ -2,15 +2,13 @@ package com.luizfelipe.obra.domain.dtos;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.luizfelipe.obra.domain.Cliente;
-import com.luizfelipe.obra.domain.enuns.Perfil;
 
 public class ClienteDTO implements Serializable {
 
@@ -18,19 +16,25 @@ public class ClienteDTO implements Serializable {
 
 	private Long idCliente;
 
-	@NotNull(message = "O campo Nome é obrigatório.")
 	private String nome;
 
-	//private Set<Long> perfis = new HashSet<>();
-
 	private String cpf;
+	
+	private String endereco;
+	
+	private String telefone;
+	
+	private String email;
+	
+	@JsonDeserialize(using = LocalDateDeserializer.class)
+	@JsonSerialize(using = LocalDateSerializer.class)
+	private LocalDate dataNascimento;
 
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataCadastro = LocalDate.now();
 
 	public ClienteDTO() {
 		super();
-		//addPerfis(Perfil.CLIENTE);
 	}
 
 	public ClienteDTO(Cliente obj) {
@@ -38,9 +42,11 @@ public class ClienteDTO implements Serializable {
 		this.idCliente = obj.getIdPessoa();
 		this.nome = obj.getNome();
 		this.dataCadastro = obj.getDataCadastro();
-		//this.perfis = obj.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
 		this.cpf = obj.getCpf();
-		//addPerfis(Perfil.CLIENTE);
+		this.endereco = obj.getEndereco();
+		this.telefone = obj.getTelefone();
+		this.email = obj.getEmail();
+		this.dataNascimento = obj.getDataNascimento();
 	}
 
 	public Long getIdCliente() {
@@ -67,20 +73,44 @@ public class ClienteDTO implements Serializable {
 		this.dataCadastro = dataCadastro;
 	}
 
-	/*public Set<Perfil> getPerfis() {
-		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
-	}
-
-	public void addPerfis(Perfil perfil) {
-		this.perfis.add(perfil.getCodigo());
-	}*/
-
 	public String getCpf() {
 		return cpf;
 	}
 
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
+	}
+
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public LocalDate getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(LocalDate dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 
 }

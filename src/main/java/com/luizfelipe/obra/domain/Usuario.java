@@ -19,7 +19,7 @@ public class Usuario extends Pessoa {
 	}
 
 	public Usuario(Long idPessoa, String nome, LocalDate dataCadastro, String cpf, String login, String senha) {
-		super(idPessoa, nome, dataCadastro, cpf, login, senha);
+		super(idPessoa, nome, dataCadastro, cpf, login, senha, null, null, null, null);
 		addPerfil(Perfil.ADMIN);
 	}
 	

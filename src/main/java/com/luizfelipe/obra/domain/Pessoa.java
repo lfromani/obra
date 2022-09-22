@@ -13,9 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
 import org.hibernate.validator.constraints.br.CPF;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.luizfelipe.obra.domain.enuns.Perfil;
 
@@ -28,7 +26,7 @@ public abstract class Pessoa implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Long idPessoa;
 
-	@Column()
+	@Column
 	protected String nome;
 
 	@ElementCollection(fetch = FetchType.EAGER)
@@ -42,18 +40,31 @@ public abstract class Pessoa implements Serializable {
 	@Column(unique = true)
 	protected String cpf;
 
-	@Column()
+	@Column
 	protected String login;
 
-	@Column()
+	@Column
 	protected String senha;
+	
+	@Column
+	protected String endereco;
+	
+	@Column
+	protected String telefone;
+	
+	@Column	
+	protected String email;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	protected LocalDate dataNascimento;	
 
 	public Pessoa() {
 		super();
 		addPerfil(Perfil.CLIENTE);
 	}
 
-	public Pessoa(Long idPessoa, String nome, LocalDate dataCadastro, String cpf, String login, String senha) {
+	public Pessoa(Long idPessoa, String nome, LocalDate dataCadastro, String cpf, String login, String senha,
+			String endereco, String telefone, String email, LocalDate dataNascimento) {
 		super();
 		this.idPessoa = idPessoa;
 		this.nome = nome;
@@ -61,6 +72,10 @@ public abstract class Pessoa implements Serializable {
 		this.cpf = cpf;
 		this.login = login;
 		this.senha = senha;
+		this.endereco = endereco;
+		this.telefone = telefone;
+		this.email = email;
+		this.dataNascimento = dataNascimento;
 		addPerfil(Perfil.CLIENTE);
 	}
 
@@ -118,6 +133,38 @@ public abstract class Pessoa implements Serializable {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public LocalDate getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(LocalDate dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 
 }
