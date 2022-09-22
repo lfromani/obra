@@ -6,16 +6,20 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 import com.luizfelipe.obra.domain.dtos.UnidadeMedidaDTO;
 
-@Entity(name = "UNIDADEMEDIDA")
+@Entity
+@Table(name = "UNIDADEMEDIDA")
 public class UnidadeMedida implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(generator = "UNIDADEMEDIDA_GENERATOR", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "UNIDADEMEDIDA_GENERATOR", sequenceName = "sequence_unidade_medida", initialValue = 1, allocationSize = 1)
 	private Long idUnidadeMedida;
 
 	@Column

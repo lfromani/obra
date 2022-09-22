@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
+
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -13,17 +14,21 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import org.hibernate.validator.constraints.br.CPF;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.luizfelipe.obra.domain.enuns.Perfil;
 
-@Entity(name = "PESSOA")
+@Entity
+@Table(name = "PESSOA")
 public abstract class Pessoa implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(generator = "PESSOA_GENERATOR", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "PESSOA_GENERATOR", sequenceName = "sequence_pessoa", initialValue = 1, allocationSize = 1)
 	protected Long idPessoa;
 
 	@Column
@@ -36,8 +41,7 @@ public abstract class Pessoa implements Serializable {
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	protected LocalDate dataCadastro = LocalDate.now();
 
-	@CPF
-	@Column(unique = true)
+	@Column
 	protected String cpf;
 
 	@Column

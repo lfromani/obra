@@ -38,7 +38,8 @@ public class ClienteService {
 	public Cliente create(ClienteDTO objDTO) {
 		objDTO.setIdCliente(null);
 
-		validarPorCPF(objDTO);
+		if (objDTO.getCpf() != null)
+			validarPorCPF(objDTO);
 
 		Cliente newObj = new Cliente(objDTO);
 		newObj.setDataCadastro(LocalDate.now());

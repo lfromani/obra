@@ -11,17 +11,21 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.luizfelipe.obra.domain.enuns.Status;
 
-@Entity(name = "OBRA")
+@Entity
+@Table(name = "OBRA")
 public class Obra implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(generator = "OBRA_GENERATOR", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "OBRA_GENERATOR", sequenceName = "sequence_obra", initialValue = 1, allocationSize = 1)
 	private Long idObra;
 	
 	@Column

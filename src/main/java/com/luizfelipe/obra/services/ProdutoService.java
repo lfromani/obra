@@ -1,5 +1,6 @@
 package com.luizfelipe.obra.services;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
@@ -62,6 +63,19 @@ public class ProdutoService {
 		Produto obj = findById(id);
 		if (Objects.nonNull(obj))
 			produtoRepository.deleteById(id);
+	}
+
+	public void atualizarQuantidade(Long produto, BigDecimal quantidade) {
+		Produto p = findById(produto);
+		
+		//System.out.println("Saldo atual: " + p.getQuantidade().toString());
+		//System.out.println("Quantidade: " + quantidade.toString());
+		
+		p.setQuantidade(p.getQuantidade().subtract(quantidade));
+		
+		//System.out.println("Saldo novo: " + p.getQuantidade().toString());
+		
+		produtoRepository.save(p);
 	}
 
 }

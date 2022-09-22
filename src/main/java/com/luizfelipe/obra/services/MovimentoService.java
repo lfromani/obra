@@ -29,6 +29,9 @@ public class MovimentoService {
 	}
 
 	public Movimento create(@Valid MovimentoDTO objDTO) {
+		if (objDTO.getQuantidade() != null)
+			produtoService.atualizarQuantidade(objDTO.getProduto(), objDTO.getQuantidade());
+		
 		Movimento movimento = new Movimento();	
 		movimento.setQuantidade(objDTO.getQuantidade());
 		movimento.setObra(obraService.findById(objDTO.getObra()));

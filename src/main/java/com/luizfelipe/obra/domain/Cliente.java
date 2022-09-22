@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import com.luizfelipe.obra.domain.dtos.ClienteDTO;
 import com.luizfelipe.obra.domain.enuns.Perfil;
 
-@Entity(name = "CLIENTE")
+@Entity
 public class Cliente extends Pessoa {
 
 	private static final long serialVersionUID = 1L;
