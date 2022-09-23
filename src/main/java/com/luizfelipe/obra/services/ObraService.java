@@ -19,10 +19,6 @@ import com.luizfelipe.obra.services.exceptions.ObjetoNaoEncontradoException;
 @Service
 public class ObraService {
 	
-	private static final Long STATUS_ABERTO = 0L;
-	private static final Long STATUS_EM_ANDAMENTO = 1L;
-	private static final Long STATUS_ENCERRADO = 2L;
-	
 	@Autowired
 	private ObraRepository obraRepository;
 	
@@ -63,6 +59,13 @@ public class ObraService {
 		obra.setDescricao(obj.getDescricao());
 		
 		return obra;
+	}
+
+	public void alterarStatus(Long idObra, Status status) {
+		Obra obra = findById(idObra);
+		obra.setStatus(status);
+		
+		obraRepository.save(obra);
 	}
 
 }

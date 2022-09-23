@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.luizfelipe.obra.domain.Movimento;
 import com.luizfelipe.obra.domain.dtos.MovimentoDTO;
+import com.luizfelipe.obra.domain.enuns.Status;
 import com.luizfelipe.obra.repository.MovimentoRepository;
 
 @Service
@@ -31,6 +32,9 @@ public class MovimentoService {
 	public Movimento create(@Valid MovimentoDTO objDTO) {
 		if (objDTO.getQuantidade() != null)
 			produtoService.atualizarQuantidade(objDTO.getProduto(), objDTO.getQuantidade());
+		
+		if (objDTO.getObra() != null)
+			obraService.alterarStatus(objDTO.getObra(), Status.ANDAMENTO);
 		
 		Movimento movimento = new Movimento();	
 		movimento.setQuantidade(objDTO.getQuantidade());
