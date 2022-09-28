@@ -3,9 +3,7 @@ package com.luizfelipe.obra.resources;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import com.luizfelipe.obra.domain.Movimento;
 import com.luizfelipe.obra.domain.Obra;
 import com.luizfelipe.obra.domain.Produto;
+import com.luizfelipe.obra.domain.dtos.ConsultaHomeObraDTO;
 import com.luizfelipe.obra.domain.dtos.MovimentoDTO;
 import com.luizfelipe.obra.services.MovimentoService;
 import com.luizfelipe.obra.vo.MovimentoVO;
@@ -35,6 +33,12 @@ public class MovimentoResource {
 		Movimento obj = service.create(objDTO);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getIdMovimento()).toUri();
 		return ResponseEntity.created(uri).build();
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<ConsultaHomeObraDTO>> findMovimentosHome() {
+		List<ConsultaHomeObraDTO> listDTO = service.findMovimentosHome();
+		return ResponseEntity.ok().body(listDTO);
 	}
 
 	@GetMapping(value = "/findByIdObra/{idObra}")
