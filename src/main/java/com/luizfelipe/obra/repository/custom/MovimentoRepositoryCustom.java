@@ -1,5 +1,6 @@
 package com.luizfelipe.obra.repository.custom;
 
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -13,6 +14,6 @@ public interface MovimentoRepositoryCustom {
 	
 	List<ConsultaHomeObraDTO> findMovimentosHome(LocalDate date);
 	
-	List<ConsultaHomeObraItemDTO> findMovimentosHomeItems(Long idObra);
+	List<ConsultaHomeObraItemDTO> findMovimentosHomeItems(BigInteger idObra);
 	
 }

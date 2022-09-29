@@ -1,5 +1,6 @@
 package com.luizfelipe.obra.repository.custom;
 
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -8,6 +9,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
+import org.hibernate.query.NativeQuery;
+import org.hibernate.transform.Transformers;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,33 +39,36 @@ public class MovimentoRepositoryImpl implements MovimentoRepositoryCustom {
 		return typedQuery.getResultList();
 	}
 
+	@SuppressWarnings({ "deprecation", "unchecked" })
 	@Override
 	public List<ConsultaHomeObraDTO> findMovimentosHome(LocalDate date) {
 		StringBuilder sb = new StringBuilder()
 			.append(" SELECT ")
-			.append(" O.ID_OBRA AS IDOBRA,")
-			.append(" CONCAT(CONCAT(O.ID_OBRA , ' - '), O.DESCRICAO) AS OBRA ")
+			.append(" O.ID_OBRA AS idObra,")
+			.append(" CONCAT(CONCAT(O.ID_OBRA , ' - '), O.DESCRICAO) AS obra ")
 			.append(" FROM MOVIMENTO M ")
 			.append(" INNER JOIN OBRA O ON O.ID_OBRA = M.ID_OBRA ")
 			.append(" WHERE M.DATA_LANCAMENTO = :dataAtual ")
 			.append(" GROUP BY O.ID_OBRA ");
 		
 		
-		Query query = entityManager.createNativeQuery(sb.toString());		
+		Query query = entityManager.createNativeQuery(sb.toString());
 		query.setParameter("dataAtual", date);
+		query.unwrap(NativeQuery.class).setResultTransformer(Transformers.aliasToBean(ConsultaHomeObraDTO.class));
 		
 		List<ConsultaHomeObraDTO> lista = query.getResultList();
 		
 		return lista;
 	}
 
+	@SuppressWarnings({ "deprecation", "unchecked" })
 	@Override
-	public List<ConsultaHomeObraItemDTO> findMovimentosHomeItems(Long idObra) {
+	public List<ConsultaHomeObraItemDTO> findMovimentosHomeItems(BigInteger idObra) {
 		StringBuilder sb = new StringBuilder()
 			.append(" SELECT ")
-			.append(" M.ID_OBRA AS IDOBRA, ")
-			.append(" CONCAT(CONCAT(P.ID_PRODUTO, ' - '), P.DESCRICAO) AS PRODUTO, ")
-			.append(" SUM(M.QUANTIDADE) AS QUANTIDADE ")
+			.append(" M.ID_OBRA AS idObra, ")
+			.append(" CONCAT(CONCAT(P.ID_PRODUTO, ' - '), P.DESCRICAO) AS produto, ")
+			.append(" SUM(M.QUANTIDADE) AS quantidade ")
 			.append(" FROM MOVIMENTO M ")
 			.append(" INNER JOIN OBRA O ON O.ID_OBRA = M.ID_OBRA ")
 			.append(" INNER JOIN PRODUTO P ON P.ID_PRODUTO = M.ID_PRODUTO ") 
@@ -71,6 +77,7 @@ public class MovimentoRepositoryImpl implements MovimentoRepositoryCustom {
 		
 		Query query = entityManager.createNativeQuery(sb.toString());		
 		query.setParameter("idObra", idObra);
+		query.unwrap(NativeQuery.class).setResultTransformer(Transformers.aliasToBean(ConsultaHomeObraItemDTO.class));
 		
 		List<ConsultaHomeObraItemDTO> listaItem = query.getResultList();
 		

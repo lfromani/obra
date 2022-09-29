@@ -1,7 +1,6 @@
 package com.luizfelipe.obra.services;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;

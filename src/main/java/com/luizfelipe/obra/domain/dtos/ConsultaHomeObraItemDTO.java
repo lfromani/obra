@@ -2,22 +2,23 @@ package com.luizfelipe.obra.domain.dtos;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 public class ConsultaHomeObraItemDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Long idObra;
+	private BigInteger idObra;
 
 	private String produto;
 
 	private BigDecimal quantidade;
 
-	public Long getIdObra() {
+	public BigInteger getIdObra() {
 		return idObra;
 	}
 
-	public void setIdObra(Long idObra) {
+	public void setIdObra(BigInteger idObra) {
 		this.idObra = idObra;
 	}
 
