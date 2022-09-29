@@ -20,9 +20,9 @@ public class TestConfig {
 	
 	@Bean
 	public void instanciaDB() {
-		if (value.equals("create")) {
+		//if (value.equals("create")) {
 			this.dbService.instanciaDB();
-		}
+		//}
 	}
 
 }
