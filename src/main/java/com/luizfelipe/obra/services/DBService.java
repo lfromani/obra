@@ -20,6 +20,8 @@ public class DBService {
 	private BCryptPasswordEncoder encoder;
 	
 	public void instanciaDB() {
+		usuarioRepository.deleteAll();
+		
 		Usuario usuario = new Usuario(null, "Luiz Felipe Romani", LocalDate.now(), "07626926935", "luiz.romani", encoder.encode("123"));
 		Usuario usuario2 = new Usuario(null, "Marcelo Canci", LocalDate.now(), "97206228062", "marcelo.canci", encoder.encode("123"));
 		
