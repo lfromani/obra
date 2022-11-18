@@ -51,6 +51,7 @@ public class MovimentoResource {
 			vo.setIdMovimento(movimento.getIdMovimento());
 			vo.setDataLancamento(movimento.getDataLancamento());
 			vo.setQuantidade(movimento.getQuantidade());
+			vo.setPreco(movimento.getPreco());
 			vo.setProduto(montarProduto(movimento.getProduto()));
 			vo.setObra(montarObra(movimento.getObra()));
 			

@@ -17,6 +17,8 @@ public class MovimentoVO implements Serializable {
 
 	private BigDecimal quantidade;
 
+	private BigDecimal preco;
+
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataLancamento;
 
@@ -58,6 +60,14 @@ public class MovimentoVO implements Serializable {
 
 	public void setDataLancamento(LocalDate dataLancamento) {
 		this.dataLancamento = dataLancamento;
+	}
+
+	public BigDecimal getPreco() {
+		return preco;
+	}
+
+	public void setPreco(BigDecimal preco) {
+		this.preco = preco;
 	}
 
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.luizfelipe.obra.domain.Movimento;
+import com.luizfelipe.obra.domain.Produto;
 import com.luizfelipe.obra.domain.dtos.ConsultaHomeObraDTO;
 import com.luizfelipe.obra.domain.dtos.ConsultaHomeObraItemDTO;
 import com.luizfelipe.obra.domain.dtos.MovimentoDTO;
@@ -38,10 +39,13 @@ public class MovimentoService {
 		if (objDTO.getObra() != null)
 			obraService.alterarStatus(objDTO.getObra(), Status.ANDAMENTO);
 		
+		Produto produto = produtoService.findById(objDTO.getProduto());
+		
 		Movimento movimento = new Movimento();	
-		movimento.setQuantidade(objDTO.getQuantidade());
 		movimento.setObra(obraService.findById(objDTO.getObra()));
-		movimento.setProduto(produtoService.findById(objDTO.getProduto()));
+		movimento.setProduto(produto);
+		movimento.setQuantidade(objDTO.getQuantidade());
+		movimento.setPreco(produto.getPreco());
 		movimento.setDataLancamento(LocalDate.now());		
 		
 		return repository.save(movimento);

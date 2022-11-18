@@ -3,7 +3,6 @@ package com.luizfelipe.obra.domain;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,7 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
@@ -25,7 +23,7 @@ public class Movimento implements Serializable {
 
 	@Id
 	@GeneratedValue(generator = "MOVIMENTO_GENERATOR", strategy = GenerationType.SEQUENCE)
-	@SequenceGenerator(name = "MOVIMENTO_GENERATOR", sequenceName = "sequence_movimento",  initialValue = 1, allocationSize = 1)
+	@SequenceGenerator(name = "MOVIMENTO_GENERATOR", sequenceName = "sequence_movimento", initialValue = 1, allocationSize = 1)
 	private Long idMovimento;
 
 	@JoinColumn(name = "idObra")
@@ -39,6 +37,9 @@ public class Movimento implements Serializable {
 	@Column
 	private BigDecimal quantidade;
 
+	@Column
+	private BigDecimal preco;
+
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataLancamento = LocalDate.now();
 
@@ -46,13 +47,14 @@ public class Movimento implements Serializable {
 		super();
 	}
 
-	public Movimento(Long idMovimento, Obra obra, Produto produto, BigDecimal quantidade, LocalDate dataLancamento) {
+	public Movimento(Long idMovimento, Obra obra, Produto produto, BigDecimal quantidade, LocalDate dataLancamento, BigDecimal preco) {
 		super();
 		this.idMovimento = idMovimento;
 		this.obra = obra;
 		this.produto = produto;
 		this.quantidade = quantidade;
 		this.dataLancamento = dataLancamento;
+		this.preco = preco;
 	}
 
 	public Long getIdMovimento() {
@@ -93,6 +95,14 @@ public class Movimento implements Serializable {
 
 	public void setDataLancamento(LocalDate dataLancamento) {
 		this.dataLancamento = dataLancamento;
+	}
+
+	public BigDecimal getPreco() {
+		return preco;
+	}
+
+	public void setPreco(BigDecimal preco) {
+		this.preco = preco;
 	}
 
 }
